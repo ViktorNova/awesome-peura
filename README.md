@@ -1,5 +1,5 @@
 # awesome-peura
-A theme & configuration for Awesome WM. All image files are from Zenburn theme.
+A theme & configuration for Awesome WM 3.5. All image files are from Zenburn theme.
 
 Wallpaper is made by [Jen Bartel](http://www.jenbartel.com/).
 
