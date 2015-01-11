@@ -324,7 +324,7 @@ for s = 1, screen.count() do
 		i = i + 1
 	end
 
-	-- Add all widgets in widgets-array defined in widgets.lua to wibox
+	-- Add all widgets in widgets-array to wibox
 	for i, v in pairs(widgets) do
 		addW(v)
 	end
