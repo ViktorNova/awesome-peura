@@ -4,13 +4,13 @@ A theme & configuration for Awesome WM. All image files are from Zenburn theme.
 Wallpaper is made by [Jen Bartel](http://www.jenbartel.com/).
 
 The theme itself may not be so interesting, but diagonal wiboxes is a unique feature. 
-Rc.lua contains only clock and systray widgets by default. Layouts are from [Lain](https://github.com/copycat-killer/lain) – which is included in this repository.
+Rc.lua contains only clock and systray widgets by default. Layouts are from [Lain](https://github.com/copycat-killer/lain) – which is included as a submodule in this repository.
 
 ![alt text](https://raw.githubusercontent.com/olzraiti/awesome-peura/master/screenshot.png)
 ![alt text](https://raw.githubusercontent.com/olzraiti/awesome-peura/master/screenshot2.png)
 
 #Installing
-1. Clone this repository to your computer and move `rc.lua` and `themes/peura` to `~/.config/awesome`.
+1. Clone this repository to your computer with`git clone --recursive https://github.com/olzraiti/awesome-peura.git` and move `rc.lua`, `themes/peura`, `wallpaper.jpg` and `lain` to `~/.config/awesome`.
 
 2. Add your widgets to the `widgets` array.
 
@@ -22,7 +22,7 @@ If you wish to use different theme, remember to add theme.bg_widgets array to th
 #Diagonal wiboxes
 If you wish to copy the diagonal wiboxes functionality to your rc.lua without using this rc.lua, do the following:
 
-1. replace this line
+* replace this line
 
 `mytasklist[s] = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, mytasklist.buttons)`
 
@@ -123,9 +123,9 @@ end
 
 mytasklist[s] = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, mytasklist.buttons, nil, update_function, tasklist_layout)
 ```
-2. Place your widgets inside a ```widgets``` array
+* Place your widgets inside a ```widgets``` array
 
-3. Inside your ```for s = 1, screen.count() do``` loop put this:
+* Inside your ```for s = 1, screen.count() do``` loop put this:
 
 ```
 local firstSeparator = nil
