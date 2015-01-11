@@ -7,6 +7,7 @@ The theme itself may not be so interesting, but diagonal wiboxes are a unique im
 Rc.lua contains only clock and systray widgets by default. Layouts are from [Lain](https://github.com/copycat-killer/lain) – which is included in this repository.
 
 ![alt text](https://raw.githubusercontent.com/olzraiti/awesome-peura/master/screenshot.png)
+![alt text](https://raw.githubusercontent.com/olzraiti/awesome-peura/master/screenshot2.png)
 
 #Installing
 1. Clone this repository to your computer and move `rc.lua` and `themes/peura` to `~/.config/awesome`.
