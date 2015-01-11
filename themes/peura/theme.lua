@@ -10,7 +10,7 @@ config_path = os.getenv("HOME") .. "/.config/awesome/"
 -- {{{ Main
 theme = {}
 
-theme.wallpaper = config_path .. "wallpaper"
+theme.wallpaper = config_path .. "wallpaper.jpg"
 -- }}}
 
 -- {{{ Styles
