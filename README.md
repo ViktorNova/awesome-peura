@@ -10,7 +10,7 @@ Rc.lua contains only clock and systray widgets by default. Layouts are from [Lai
 ![alt text](https://raw.githubusercontent.com/olzraiti/awesome-peura/master/screenshot2.png)
 
 #Installing
-1. Clone this repository to your computer with`git clone --recursive https://github.com/olzraiti/awesome-peura.git` and move `rc.lua`, `themes/peura` and `lain` to `~/.config/awesome`.
+1. Clone this repository to your computer with`git clone --recursive https://github.com/olzraiti/awesome-peura.git` and move `rc.lua`, `themes/peura`, `wallpaper.jpg` and `lain` to `~/.config/awesome`.
 
 2. Add your widgets to the `widgets` array.
 
