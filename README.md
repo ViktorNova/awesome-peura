@@ -3,27 +3,33 @@ A theme & configuration for Awesome WM. All image files are from Zenburn theme.
 
 Wallpaper is made by [Jen Bartel](http://www.jenbartel.com/).
 
-The theme itself may not be so interesting, but diagonal wiboxes are a unique implementation. 
+The theme itself may not be so interesting, but diagonal wiboxes is a unique feature. 
 Rc.lua contains only clock and systray widgets by default. Layouts are from [Lain](https://github.com/copycat-killer/lain) – which is included in this repository.
 
 ![alt text](https://raw.githubusercontent.com/olzraiti/awesome-peura/master/screenshot.png)
+![alt text](https://raw.githubusercontent.com/olzraiti/awesome-peura/master/screenshot2.png)
 
 #Installing
 1. Clone this repository to your computer and move `rc.lua` and `themes/peura` to `~/.config/awesome`.
 
 2. Add your widgets to the `widgets` array.
 
+#Changing theme
 If you wish to use different theme, remember to add theme.bg_widgets array to the theme.
 
 `theme.bg_systray` must be pointed to `theme.bg_widgets` by it's index in widgets, i.e. `theme.bg_systray = theme.bg_widgets[1]`
 
-If you wish to copy the diagonal wiboxes functionality to your rc.lua without using this rc.lua, replace this line
+#Diagonal wiboxes
+If you wish to copy the diagonal wiboxes functionality to your rc.lua without using this rc.lua, do the following:
+
+1. replace this line
 
 `mytasklist[s] = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, mytasklist.buttons)`
 
 with this:
 
 ```
+-- You can also place this function outside the "for s = 1, screen.count() do" loop
 function update_function(w, buttons, label, data, objects)
 	-- update the widgets, creating them if needed
 	w:reset()
@@ -116,4 +122,42 @@ function update_function(w, buttons, label, data, objects)
 end
 
 mytasklist[s] = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, mytasklist.buttons, nil, update_function, tasklist_layout)
+```
+2. Place your widgets inside a ```widgets``` array
+
+3. Inside your ```for s = 1, screen.count() do``` loop put this:
+
+```
+local firstSeparator = nil
+function updateFirstSeparator (bg)
+	firstSeparator:set_bg(bg)
+end
+
+local i = 1 
+local len = tablelength(widgets)
+
+-- Function for adding widgets to wibox
+function addW (w)
+	local separator = wibox.widget.background()
+	separator:set_widget(separator_text)
+	if i == 1 then
+		firstSeparator = separator
+	elseif i == len then
+		w = wibox.layout.margin(w, 0, 10, 0, 0)
+	end
+	separator:set_bg(bg_widgets[i])
+	separator:set_fg(bg_widgets[i + 1])
+	right_layout:add(separator)
+	local wgb = wibox.widget.background()
+	wgb:set_widget(w)
+	wgb:set_bg(bg_widgets[i + 1])
+	wgb:set_fg(beautiful.fg_widget)
+	right_layout:add(wgb)
+	i = i + 1
+end
+
+-- Add all widgets in widgets-array defined in widgets.lua to wibox
+for i, v in pairs(widgets) do
+	addW(v)
+end
 ```
