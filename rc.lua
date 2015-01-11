@@ -178,67 +178,10 @@ separator_text:set_markup("◢")
 separator_text:set_font("sans 46")
 
 function tablelength(T)
-  local count = 0
-  for _ in pairs(T) do count = count + 1 end
-  return count
+	local count = 0
+	for _ in pairs(T) do count = count + 1 end
+	return count
 end
-
-for s = 1, screen.count() do
-	-- Create a promptbox for each screen
-	mypromptbox[s] = awful.widget.prompt()
-	-- Create an imagebox widget which will contains an icon indicating which layout we're using.
-	-- We need one layoutbox per screen.
-	mylayoutbox[s] = awful.widget.layoutbox(s)
-	mylayoutbox[s]:buttons(awful.util.table.join(
-		awful.button({ }, 1, function () awful.layout.inc(layouts, 1) end),
-		awful.button({ }, 3, function () awful.layout.inc(layouts, -1) end),
-		awful.button({ }, 4, function () awful.layout.inc(layouts, 1) end),
-		awful.button({ }, 5, function () awful.layout.inc(layouts, -1) end)
-	))
-	-- Create a taglist widget
-	mytaglist[s] = awful.widget.taglist(s, awful.widget.taglist.filter.all, mytaglist.buttons)
-
-
-	-- Widgets that are aligned to the right
-	local right_layout = wibox.layout.fixed.horizontal()
-
-	if s == 1 then 
-	table.insert(widgets, 1, wibox.widget.systray())
-	end
-
-
-	local firstSeparator = nil
-	function updateFirstSeparator (bg)
-		firstSeparator:set_bg(bg)
-	end
-
-	local i = 1 
-	local len = tablelength(widgets)
-
-	-- Function for adding widgets to wibox
-	function addW (w)
-	local separator = wibox.widget.background()
-	separator:set_widget(separator_text)
-	if i == 1 then
-		firstSeparator = separator
-	elseif i == len then
-		w = wibox.layout.margin(w, 0, 10, 0, 0)
-	end
-	separator:set_bg(bg_widgets[i])
-	separator:set_fg(bg_widgets[i + 1])
-	right_layout:add(separator)
-	local wgb = wibox.widget.background()
-	wgb:set_widget(w)
-	wgb:set_bg(bg_widgets[i + 1])
-	wgb:set_fg(beautiful.fg_widget)
-	right_layout:add(wgb)
-	i = i + 1
-	end
-
-	-- Add all widgets in widgets-array defined in widgets.lua to wibox
-	for i, v in pairs(widgets) do
-	addW(v)
-	end
 
 function update_function(w, buttons, label, data, objects)
 	-- update the widgets, creating them if needed
@@ -330,8 +273,63 @@ function update_function(w, buttons, label, data, objects)
 		w:add(bgbWrapper)
 	end
 end
-local tasklist_layout = wibox.layout.flex.horizontal()
-	--mytasklist[s] = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, mytasklist.buttons)
+
+for s = 1, screen.count() do
+	-- Create a promptbox for each screen
+	mypromptbox[s] = awful.widget.prompt()
+	-- Create an imagebox widget which will contains an icon indicating which layout we're using.
+	-- We need one layoutbox per screen.
+	mylayoutbox[s] = awful.widget.layoutbox(s)
+	mylayoutbox[s]:buttons(awful.util.table.join(
+		awful.button({ }, 1, function () awful.layout.inc(layouts, 1) end),
+		awful.button({ }, 3, function () awful.layout.inc(layouts, -1) end),
+		awful.button({ }, 4, function () awful.layout.inc(layouts, 1) end),
+		awful.button({ }, 5, function () awful.layout.inc(layouts, -1) end)
+	))
+	-- Create a taglist widget
+	mytaglist[s] = awful.widget.taglist(s, awful.widget.taglist.filter.all, mytaglist.buttons)
+
+	-- Widgets that are aligned to the right
+	local right_layout = wibox.layout.fixed.horizontal()
+
+	if s == 1 then 
+		table.insert(widgets, 1, wibox.widget.systray())
+	end
+
+	local firstSeparator = nil
+	function updateFirstSeparator (bg)
+		firstSeparator:set_bg(bg)
+	end
+
+	local i = 1 
+	local len = tablelength(widgets)
+
+	-- Function for adding widgets to wibox
+	function addW (w)
+		local separator = wibox.widget.background()
+		separator:set_widget(separator_text)
+		if i == 1 then
+			firstSeparator = separator
+		elseif i == len then
+			w = wibox.layout.margin(w, 0, 10, 0, 0)
+		end
+		separator:set_bg(bg_widgets[i])
+		separator:set_fg(bg_widgets[i + 1])
+		right_layout:add(separator)
+		local wgb = wibox.widget.background()
+		wgb:set_widget(w)
+		wgb:set_bg(bg_widgets[i + 1])
+		wgb:set_fg(beautiful.fg_widget)
+		right_layout:add(wgb)
+		i = i + 1
+	end
+
+	-- Add all widgets in widgets-array defined in widgets.lua to wibox
+	for i, v in pairs(widgets) do
+		addW(v)
+	end
+
+	local tasklist_layout = wibox.layout.flex.horizontal()
 	mytasklist[s] = awful.widget.tasklist(s, awful.widget.tasklist.filter.currenttags, mytasklist.buttons, nil, update_function, tasklist_layout)
 
 	-- Create the wibox
